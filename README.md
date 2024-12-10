@@ -1,2 +1,2 @@
-# Cpp_Learning_IIT
-A guide documenting our process for learning C++. This guide is intended for developers with some previous programming skills comprising of recommended videos to watch, practice problems to solve, and LeetCode solutions with accompanied logical insights accomplished using C++. This guide is created by Danish Nadar and Natorion Johnson.
+# C++ Learning
+This guide documents our process for learning C++. It is intended for developers with previous programming experience. It comprises recommended videos to watch, practice problems to solve, and LeetCode solutions accomplished using C++, each accompanied by logical insights to elucidate our problem-solving process. This guide was created by Danish Nadar and Natorion Johnson.
