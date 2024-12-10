@@ -1,0 +1,1 @@
+This folder will contain videos you should watch to begin learning C++ syntax and general skils. Videos in this repository will mostly assume you have sufficient general knowledge of programming concepts such as loops and programming constraints.
