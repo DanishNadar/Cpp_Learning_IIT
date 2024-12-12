@@ -44,7 +44,8 @@ add_executable(exe_file_name your_project.cpp)
 Replace exe_file_name with the desired name for your executable file. Replace your_project.cpp with the name of your C++ source file.
 
 
-2. Create a Build Path and Use CMake to Compile  
+2. Create a Build Path and Use CMake to Compile
+   
 Now that you have created a CMakeLists.txt file, follow these steps to compile your C++ file and generate an executable:
 
 
