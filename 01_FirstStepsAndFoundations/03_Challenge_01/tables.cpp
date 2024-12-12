@@ -10,7 +10,7 @@ void tables(int user_num) {
 }
 
 int main() {
-    int user_num = 0;  // Declare user_num locally in main
+    int user_num = 0;
 
     do {
         cout << "Enter your number: ";
