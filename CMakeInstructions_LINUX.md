@@ -1,55 +1,64 @@
-The following instructions will help you install CMake and use it to create executable files by compiling C++ code you write. These instructions will be particularly relevant for developers using a Linux operating system.
+The following instructions will help you install CMake and use it to create executable files by compiling C++ code you write. These instructions are particularly relevant for developers using a Linux operating system.
 
 ## CMake Installation
-Using Arch Linux, installation of cmake can be accomplished by simply using the following command,
-```
+On Arch Linux, installing CMake can be accomplished by using the following command:
+
 sudo pacman -S cmake
-```
-## Creating an executable C++ file using CMake
+
+## Steps to creating an Executable C++ File Using CMake
 The following steps will help you compile and run an executable C++ file using CMake.
 
-### Create a CMakeLists.txt file
-This file will comprise of necessary information for cmake to compile the program and create an executable. 
+1. Create a CMakeLists.txt File  
+This file contains the necessary information for CMake to compile the program and create an executable.
 
-To start, specify which version of CMake you are using by writing the following line into your CMakeLists.txt file.
+- Specify the CMake Version  
+Add the following line to your CMakeLists.txt file to specify the CMake version you are using:
 ```
 cmake_minimum_required(VERSION 3.31.2)
 ```
-In this example, my cmake's version was 3.31.2. Your cmake version information can be found by returning to your terminal from your text editor and running the command: cmake --version. 
+In this example, the version is 3.31.2. Replace it with your version, which you can find by running this command in your terminal:
+```
+cmake --version
+```
 
-1. Specify your project's name by writing the following line. 
+- Specify the Project Name  
+Add this line to specify your project's name:
 ```
 project(your_project_name)
 ```
-Replace your_project_name with your project's name. 
+Replace your_project_name with your actual project name.
 
-2. Specifythat you are using the C++ standard, you must write the following lines. 
+- Specify the C++ Standard  
+Add the following lines to ensure CMake uses the correct C++ standard:
 ```
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 ```
-Do not change these lines.
+These lines should remain unchanged.
 
-3. Specify parameters used for creating your executable file. 
+- Specify the Executable File Parameters  
+Add this line to define the name of your executable file and the C++ file to compile:
 ```
-add_executable(exe_file_name your_project.cpp) 
+add_executable(exe_file_name your_project.cpp)
 ```
-In this line, the first parameter, exe_file_name details what your desired name is for your project's executable file. The second parameter, your_project.cpp details which cpp file you desire to compile and create an executable file for. 
+Replace exe_file_name with the desired name for your executable file. Replace your_project.cpp with the name of your C++ source file.
 
-### Create a build path and use CMake to create the executable C++ file. 
-Now that you have created a CMakeLists.txt file, you can use it to create the specified executable file by performing the following steps. 
+2. Create a Build Path and Use CMake to Compile  
+Now that you have created a CMakeLists.txt file, follow these steps to compile your C++ file and generate an executable:
 
-1. Create a build path and build the project files in that build folder using cmake. 
+- Create a Build Path  
+Use the following commands to create a build directory and run CMake:
 ```
 mkdir build
-
 cd build
-
 cmake ..
 ```
-2. Then, you will see a file by the name of your first parameter in add_executable(). Run this executable file to output your code. 
+- Run the Executable  
+After the build process completes, an executable file named after the first parameter in add_executable() will be created. Run the executable using:
 ```
 ./exe_file_name
 ```
-Note: You can check if the executable file has been created by using the ls command to show your directory's contents. There, you will see an executable file by the same name specified earlier. 
+Replace exe_file_name with the name you specified earlier.
+
+Note: You can verify the creation of the executable file by using the ls command to list the contents of your directory. The executable file should have the same name as the one specified in add_executable().
 
