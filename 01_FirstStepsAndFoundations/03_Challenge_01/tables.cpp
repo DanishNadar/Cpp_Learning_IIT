@@ -1,26 +1,37 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 // Function to display multiplication tables
 void tables(int user_num) {
     for (int i = 0; i < 12; i++) {
-        cout << user_num << " + " << i + 1 << " = " << user_num * (i + 1) << endl;
+        cout << user_num << " * " << i + 1 << " = " << user_num * (i + 1) << endl;
     }
     cout << "\n";
 }
 
 int main() {
-    int user_num = 0;
+    string input;
+    int user_num;
+
+    cout << "Enter 'end' to quit the program at any time.\n";
 
     do {
         cout << "Enter your number: ";
-        cin >> user_num;
+        cin >> input;
 
-        if (user_num != -1) {  // Only call tables() if user_num is not -1
-            tables(user_num);
+        if (input == "end") {
+            break; 
         }
 
-    } while (user_num != -1);
+        try {
+            user_num = stoi(input); 
+            tables(user_num);
+        } catch (invalid_argument&) {
+            cout << "Invalid input! Please enter a valid number or 'end' to quit.\n";
+        }
+
+    } while (true);
 
     cout << "Program ended." << endl;
     return 0;
