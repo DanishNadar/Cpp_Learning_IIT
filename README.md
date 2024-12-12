@@ -90,6 +90,6 @@ Our learning path is divided into **8 comprehensive modules** designed to take y
 
 Start your **C++ journey** today, from foundational programming concepts to real-world embedded systems projects! 🚀  
 
-[📥 Contribute to the Guide](https://github.com/DanishNadar/Cpp_Learning_IIT) | [🌐 Learn More About the Illinois Tech Robotics Club](https://www.iit.edu)
+[📥 Contribute to the Guide](https://github.com/DanishNadar/Cpp_Learning_IIT) | [🌐 Learn More About the Illinois Tech Robotics Club](https://illinoistechrobotics.org/)
 
 This learning repository was created by Danish Nadar and Natorion Johnson for, and in affiliation with, the Illinois Tech Robotics Club. 
