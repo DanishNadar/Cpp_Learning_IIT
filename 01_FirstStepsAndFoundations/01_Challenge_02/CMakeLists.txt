@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.31.2)
+project(addition)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+add_executable(addition addition.cpp)
