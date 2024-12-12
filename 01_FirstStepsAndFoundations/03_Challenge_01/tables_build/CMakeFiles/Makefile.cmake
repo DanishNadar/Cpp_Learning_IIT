@@ -7,7 +7,7 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/01_FirstStepsAndFoundations/01_Challenge_03/CMakeLists.txt"
+  "/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/01_FirstStepsAndFoundations/03_Challenge_01/CMakeLists.txt"
   "CMakeFiles/3.31.2/CMakeCCompiler.cmake"
   "CMakeFiles/3.31.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.31.2/CMakeSystem.cmake"

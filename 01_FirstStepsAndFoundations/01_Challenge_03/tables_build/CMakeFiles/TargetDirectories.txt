@@ -1,3 +1,0 @@
-/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/01_FirstStepsAndFoundations/01_Challenge_03/tables_build/CMakeFiles/tables.dir
-/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/01_FirstStepsAndFoundations/01_Challenge_03/tables_build/CMakeFiles/edit_cache.dir
-/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/01_FirstStepsAndFoundations/01_Challenge_03/tables_build/CMakeFiles/rebuild_cache.dir
