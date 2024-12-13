@@ -1,6 +1,6 @@
-# C++ Practice Challenges
+# 01 C++ Practice Challenges
 
-These challenges are designed to help you practice fundamental C++ concepts. Each challenge provides clear requirements and sample outputs. Feel free to name your files as you see fit.  
+These challenges are designed to help you practice fundamental C++ concepts. Each challenge provides clear requirements and sample outputs.
 
 ---
 
