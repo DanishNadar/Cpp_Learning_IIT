@@ -123,41 +123,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named bank_account
+# Target rules for targets named bank_oop
 
 # Build rule for target.
-bank_account: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bank_account
-.PHONY : bank_account
+bank_oop: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bank_oop
+.PHONY : bank_oop
 
 # fast build rule for target.
-bank_account/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_account.dir/build.make CMakeFiles/bank_account.dir/build
-.PHONY : bank_account/fast
+bank_oop/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_oop.dir/build.make CMakeFiles/bank_oop.dir/build
+.PHONY : bank_oop/fast
 
-bank_account.o: bank_account.cpp.o
-.PHONY : bank_account.o
+bank_oop.o: bank_oop.cpp.o
+.PHONY : bank_oop.o
 
 # target to build an object file
-bank_account.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_account.dir/build.make CMakeFiles/bank_account.dir/bank_account.cpp.o
-.PHONY : bank_account.cpp.o
+bank_oop.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_oop.dir/build.make CMakeFiles/bank_oop.dir/bank_oop.cpp.o
+.PHONY : bank_oop.cpp.o
 
-bank_account.i: bank_account.cpp.i
-.PHONY : bank_account.i
+bank_oop.i: bank_oop.cpp.i
+.PHONY : bank_oop.i
 
 # target to preprocess a source file
-bank_account.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_account.dir/build.make CMakeFiles/bank_account.dir/bank_account.cpp.i
-.PHONY : bank_account.cpp.i
+bank_oop.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_oop.dir/build.make CMakeFiles/bank_oop.dir/bank_oop.cpp.i
+.PHONY : bank_oop.cpp.i
 
-bank_account.s: bank_account.cpp.s
-.PHONY : bank_account.s
+bank_oop.s: bank_oop.cpp.s
+.PHONY : bank_oop.s
 
 # target to generate assembly for a file
-bank_account.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_account.dir/build.make CMakeFiles/bank_account.dir/bank_account.cpp.s
-.PHONY : bank_account.cpp.s
+bank_oop.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_oop.dir/build.make CMakeFiles/bank_oop.dir/bank_oop.cpp.s
+.PHONY : bank_oop.cpp.s
 
 # Help Target
 help:
@@ -167,10 +167,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... bank_account"
-	@echo "... bank_account.o"
-	@echo "... bank_account.i"
-	@echo "... bank_account.s"
+	@echo "... bank_oop"
+	@echo "... bank_oop.o"
+	@echo "... bank_oop.i"
+	@echo "... bank_oop.s"
 .PHONY : help
 
 

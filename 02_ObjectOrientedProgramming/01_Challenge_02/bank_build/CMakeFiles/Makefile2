@@ -63,11 +63,11 @@ CMAKE_BINARY_DIR = /home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/bank_account.dir/all
+all: CMakeFiles/bank_oop.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/bank_account.dir/codegen
+codegen: CMakeFiles/bank_oop.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,39 +75,39 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/bank_account.dir/clean
+clean: CMakeFiles/bank_oop.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/bank_account.dir
+# Target rules for target CMakeFiles/bank_oop.dir
 
 # All Build rule for target.
-CMakeFiles/bank_account.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_account.dir/build.make CMakeFiles/bank_account.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_account.dir/build.make CMakeFiles/bank_account.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/02_ObjectOrientedProgramming/01_Challenge_02/bank_build/CMakeFiles --progress-num=1,2 "Built target bank_account"
-.PHONY : CMakeFiles/bank_account.dir/all
+CMakeFiles/bank_oop.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_oop.dir/build.make CMakeFiles/bank_oop.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_oop.dir/build.make CMakeFiles/bank_oop.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/02_ObjectOrientedProgramming/01_Challenge_02/bank_build/CMakeFiles --progress-num=1,2 "Built target bank_oop"
+.PHONY : CMakeFiles/bank_oop.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/bank_account.dir/rule: cmake_check_build_system
+CMakeFiles/bank_oop.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/02_ObjectOrientedProgramming/01_Challenge_02/bank_build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bank_account.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bank_oop.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/02_ObjectOrientedProgramming/01_Challenge_02/bank_build/CMakeFiles 0
-.PHONY : CMakeFiles/bank_account.dir/rule
+.PHONY : CMakeFiles/bank_oop.dir/rule
 
 # Convenience name for target.
-bank_account: CMakeFiles/bank_account.dir/rule
-.PHONY : bank_account
+bank_oop: CMakeFiles/bank_oop.dir/rule
+.PHONY : bank_oop
 
 # codegen rule for target.
-CMakeFiles/bank_account.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_account.dir/build.make CMakeFiles/bank_account.dir/codegen
-.PHONY : CMakeFiles/bank_account.dir/codegen
+CMakeFiles/bank_oop.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_oop.dir/build.make CMakeFiles/bank_oop.dir/codegen
+.PHONY : CMakeFiles/bank_oop.dir/codegen
 
 # clean rule for target.
-CMakeFiles/bank_account.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_account.dir/build.make CMakeFiles/bank_account.dir/clean
-.PHONY : CMakeFiles/bank_account.dir/clean
+CMakeFiles/bank_oop.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bank_oop.dir/build.make CMakeFiles/bank_oop.dir/clean
+.PHONY : CMakeFiles/bank_oop.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

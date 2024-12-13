@@ -148,7 +148,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=bank_account
+CMAKE_PROJECT_NAME:STATIC=bank_oop
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -216,13 +216,13 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
-bank_account_BINARY_DIR:STATIC=/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/02_ObjectOrientedProgramming/01_Challenge_02/bank_build
+bank_oop_BINARY_DIR:STATIC=/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/02_ObjectOrientedProgramming/01_Challenge_02/bank_build
 
 //Value Computed by CMake
-bank_account_IS_TOP_LEVEL:STATIC=ON
+bank_oop_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-bank_account_SOURCE_DIR:STATIC=/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/02_ObjectOrientedProgramming/01_Challenge_02
+bank_oop_SOURCE_DIR:STATIC=/home/spiron/Documents/Development/CppGitHub/Cpp_Learning_IIT/02_ObjectOrientedProgramming/01_Challenge_02
 
 
 ########################
