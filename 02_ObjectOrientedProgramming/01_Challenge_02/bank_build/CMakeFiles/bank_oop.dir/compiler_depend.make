@@ -108,12 +108,15 @@ CMakeFiles/bank_oop.dir/bank_oop.cpp.o: /home/spiron/Documents/Development/CppGi
   /usr/include/c++/14.2.1/bits/requires_hosted.h \
   /usr/include/c++/14.2.1/bits/std_abs.h \
   /usr/include/c++/14.2.1/bits/stl_algobase.h \
+  /usr/include/c++/14.2.1/bits/stl_bvector.h \
   /usr/include/c++/14.2.1/bits/stl_construct.h \
   /usr/include/c++/14.2.1/bits/stl_function.h \
   /usr/include/c++/14.2.1/bits/stl_iterator.h \
   /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/14.2.1/bits/stl_iterator_base_types.h \
   /usr/include/c++/14.2.1/bits/stl_pair.h \
+  /usr/include/c++/14.2.1/bits/stl_uninitialized.h \
+  /usr/include/c++/14.2.1/bits/stl_vector.h \
   /usr/include/c++/14.2.1/bits/streambuf.tcc \
   /usr/include/c++/14.2.1/bits/streambuf_iterator.h \
   /usr/include/c++/14.2.1/bits/string_view.tcc \
@@ -121,6 +124,7 @@ CMakeFiles/bank_oop.dir/bank_oop.cpp.o: /home/spiron/Documents/Development/CppGi
   /usr/include/c++/14.2.1/bits/uses_allocator.h \
   /usr/include/c++/14.2.1/bits/uses_allocator_args.h \
   /usr/include/c++/14.2.1/bits/utility.h \
+  /usr/include/c++/14.2.1/bits/vector.tcc \
   /usr/include/c++/14.2.1/bits/version.h \
   /usr/include/c++/14.2.1/cctype \
   /usr/include/c++/14.2.1/cerrno \
@@ -156,6 +160,7 @@ CMakeFiles/bank_oop.dir/bank_oop.cpp.o: /home/spiron/Documents/Development/CppGi
   /usr/include/c++/14.2.1/tuple \
   /usr/include/c++/14.2.1/type_traits \
   /usr/include/c++/14.2.1/typeinfo \
+  /usr/include/c++/14.2.1/vector \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -203,8 +208,6 @@ bank_oop: /usr/lib/libc.so \
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdarg.h:
 
-/usr/include/wchar.h:
-
 /usr/include/time.h:
 
 /usr/include/sys/select.h:
@@ -238,6 +241,10 @@ bank_oop: /usr/lib/libc.so \
 /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h:
 
 /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
+
+/usr/include/wchar.h:
+
+/usr/include/c++/14.2.1/vector:
 
 /usr/include/c++/14.2.1/type_traits:
 
@@ -279,6 +286,10 @@ bank_oop: /usr/lib/libc.so \
 
 /usr/include/c++/14.2.1/cstdlib:
 
+/usr/include/c++/14.2.1/cstdio:
+
+/usr/include/c++/14.2.1/clocale:
+
 /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h:
 
 /usr/include/c++/14.2.1/stdexcept:
@@ -303,15 +314,11 @@ bank_oop: /usr/lib/libc.so \
 
 /usr/include/bits/types/locale_t.h:
 
-/usr/include/c++/14.2.1/cstdio:
-
 /usr/include/bits/typesizes.h:
 
 /usr/include/bits/cpu-set.h:
 
 /usr/include/c++/14.2.1/bits/functexcept.h:
-
-/usr/include/bits/types/cookie_io_functions_t.h:
 
 /usr/include/bits/sched.h:
 
@@ -349,11 +356,13 @@ bank_oop: /usr/lib/libc.so \
 
 /usr/include/bits/stdint-intn.h:
 
+/usr/include/c++/14.2.1/concepts:
+
+/usr/include/bits/endian.h:
+
 /usr/include/c++/14.2.1/bits/stl_pair.h:
 
 /usr/include/bits/floatn-common.h:
-
-/usr/include/c++/14.2.1/clocale:
 
 /usr/include/bits/types/struct_sched_param.h:
 
@@ -521,8 +530,6 @@ bank_oop: /usr/lib/libc.so \
 
 /usr/include/c++/14.2.1/bits/invoke.h:
 
-/usr/include/c++/14.2.1/cstddef:
-
 /usr/include/c++/14.2.1/bits/istream.tcc:
 
 /usr/include/asm/errno.h:
@@ -563,22 +570,30 @@ bank_oop: /usr/lib/libc.so \
 
 /usr/include/c++/14.2.1/bits/string_view.tcc:
 
+/usr/include/c++/14.2.1/bits/stl_bvector.h:
+
 /usr/include/bits/pthreadtypes.h:
 
 /usr/include/c++/14.2.1/bits/basic_string.h:
 
 /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h:
 
-/usr/include/c++/14.2.1/bits/stringfwd.h:
+/usr/include/bits/types/cookie_io_functions_t.h:
+
+/usr/include/c++/14.2.1/bits/stl_uninitialized.h:
+
+/usr/include/c++/14.2.1/bits/stl_vector.h:
 
 /usr/include/c++/14.2.1/bits/uses_allocator.h:
 
+/usr/include/c++/14.2.1/bits/stringfwd.h:
+
 /usr/include/c++/14.2.1/bits/utility.h:
+
+/usr/include/c++/14.2.1/cstddef:
+
+/usr/include/c++/14.2.1/bits/vector.tcc:
 
 /usr/include/c++/14.2.1/cctype:
 
 /usr/include/c++/14.2.1/cerrno:
-
-/usr/include/bits/endian.h:
-
-/usr/include/c++/14.2.1/concepts:
