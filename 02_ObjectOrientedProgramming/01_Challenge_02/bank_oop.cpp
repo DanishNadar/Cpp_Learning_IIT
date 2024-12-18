@@ -9,59 +9,58 @@ using namespace std; // This line will help avoid repetitively referencing std::
 class BankAccount {
 private:
     string* accountID; // Pointer to dynamically store the account ID
-    string* accountHolderName; // Pointer to dynamically store the account holder's name
+    string* accountHolderNaame; // Pointer to dynamically store the account holder's name
     string* password; // Pointer to dynamically store the account password
     double* balance; // Pointer to dynamically store the account balance
     bool validated = false; // Validation flag for user authentication
-    bool admin_piveleges = false; // Validation flag for admin priveleges
+    bool admin_privileges = false; // Validation flag for admin privileges
     static vector<BankAccount*> accounts; // Static vector to store all created accounts
 
 public:
     // Constructor: Allocate memory for all attributes
-    BankAccount() :
-          accountID(new string()), 
-          accountHolderName(new string()), 
-          password(new string()), 
+    BankAccount()
+        : accountID(new string()),
+          accountHolderName(new string()),
+          password(new string()),
           balance(new double(0.0)) {
         accounts.push_back(this); // Add the newly created account to the global list
     }
 
-    BankAccount(string name, string pass) :
-          accountID(new string()), 
-          accountHolderName(new string(name)), 
-          password(new string(pass)), 
+    BankAccount(string name, string pass)
+        : accountID(new string()),
+          accountHolderName(new string(name)),
+          password(new string(pass)),
           balance(new double(0.0)) {
         accounts.push_back(this); // Add the newly created account to the global list
     }
 
     // Safeguarded setters that allocate memory if needed
-    void setAccountHolderName(string name) { 
+    void setAccountHolderName(string name) {
         if (!accountHolderName) accountHolderName = new string();
-        *accountHolderName = name; 
+        *accountHolderName = name;
     }
 
-    void setPassword(string pass) { 
+    void setPassword(string pass) {
         if (!password) password = new string();
-        *password = pass; 
+        *password = pass;
     }
 
-    void setAccountID(string ID) { 
+    void setAccountID(string ID) {
         if (!accountID) accountID = new string();
-        *accountID = ID; 
+        *accountID = ID;
     }
 
     string getAccountHolderName() { return *accountHolderName; }
     string getPassword() { return *password; }
-    
+
     // Helper function for later use when creating unique IDs
     int randomNumberGenerator() {
-        srand(time(0)); // Seed the random number generator with the current time
         return rand() % 10000 + 1; // Generate a random number between 1 and 10000
     }
 
-    // Dynamically allocating memory for account details including ID, name, and password
+    // Dynamically allocate memory for account details including ID, name, and password
     void setAccountInformation(string ID, string name, string pass) {
-	setAccountID(ID);
+        setAccountID(ID);
         setAccountHolderName(name);
         setPassword(pass);
     }
@@ -78,7 +77,7 @@ public:
         string name, pass;
         if (accountHolderName->empty()) {
             cout << "Please provide the account holder's name: ";
-            cin >> name; 
+            cin >> name;
             setAccountHolderName(name); // Set account holder's name
         }
         if (password->empty()) {
@@ -86,8 +85,8 @@ public:
             cin >> pass;
             setPassword(pass); // Set password
         }
-        string accountID = accountHolderName->substr(0, accountHolderName->find(' ')) + to_string(randomNumberGenerator());
-        setAccountInformation(accountID, *accountHolderName, *password); // Assign account information
+        string ID = accountHolderName->substr(0, accountHolderName->find(' ')) + to_string(randomNumberGenerator());
+        setAccountInformation(ID, *accountHolderName, *password); // Assign account information
         displayAccountInformation(); // Show details to the user
     }
 
@@ -100,9 +99,9 @@ public:
         cout << "Enter Account ID: ";
         cin >> attempted_ID;
 
-	if (attempted_name == "admin" && attempted_password == "12345678"){
-	    admin_priveleges = true;
-	}
+        if (attempted_name == "admin" && attempted_password == "12345678") {
+            admin_privileges = true;
+        }
 
         if (attempted_name == *accountHolderName && attempted_password == *password && attempted_ID == *accountID) {
             validated = true;
@@ -143,7 +142,9 @@ public:
 
     // Static method to view all created accounts
     static void viewAllInformation() {
-	if(this->admin_priveleges == true){
+    // Only allow access if admin privileges are enabled
+    for (const auto& account : accounts) {
+        if (account->admin_privileges) {
             if (accounts.empty()) {
                 cout << "No accounts have been created yet." << endl;
                 return;
@@ -155,10 +156,14 @@ public:
                 accounts[i]->displayAccountInformation();
                 cout << "-------------------" << endl;
             }
-	} else{
-	    cout << "You do not have administrative priveleges! You must enter admin credentials when validating user." << endl; 
-	}
+            return;
+        }
     }
+
+    // If no admin privileges, show an error message
+    cout << "Access denied. You must have administrative privileges to view all accounts." << endl;
+}
+
 
     ~BankAccount() {
         delete accountID;
@@ -211,6 +216,7 @@ void redirect(BankAccount& account, string choice) {
 }
 
 int main() {
+    srand(time(0)); // Seed the random number generator
     BankAccount account;
     string input = "";
     cout << "You may perform as many operations or interactions as you would like. Please use the 'end' keyword to exit the program." << endl;
