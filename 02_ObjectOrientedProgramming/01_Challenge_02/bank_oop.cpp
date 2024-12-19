@@ -77,27 +77,29 @@ public:
         string name, pass;
         if (accountHolderName->empty()) {
             cout << "Please provide the account holder's name: ";
-            cin >> name;
+            getline(cin, name); // Use getline to capture full input, including spaces
             setAccountHolderName(name); // Set account holder's name
         }
         if (password->empty()) {
             cout << "Please provide a password for your bank account: ";
-            cin >> pass;
+            getline(cin, pass); // Use getline to capture full input
             setPassword(pass); // Set password
         }
         string ID = accountHolderName->substr(0, accountHolderName->find(' ')) + to_string(randomNumberGenerator());
         setAccountInformation(ID, *accountHolderName, *password); // Assign account information
         displayAccountInformation(); // Show details to the user
     }
+  
 
     void validateUser() {
         string attempted_name, attempted_password, attempted_ID;
         cout << "Enter Account Holder's Name: ";
-        cin >> attempted_name;
+        cin.ignore();
+        getline(cin, attempted_name);
         cout << "Enter Account Password: ";
-        cin >> attempted_password;
+        getline(cin, attempted_password);
         cout << "Enter Account ID: ";
-        cin >> attempted_ID;
+        getline(cin, attempted_ID);
 
         if (attempted_name == "admin" && attempted_password == "12345678" && attempted_ID == "admin1234") {
             admin_privileges = true;
@@ -189,7 +191,7 @@ string menu() {
          << "Write the number in parenthesis corresponding to and following your chosen option."
          << endl;
     string user_input;
-    cin >> user_input;
+    getline(cin, user_input);
     return user_input;
 }
 
@@ -230,3 +232,4 @@ int main() {
     }
     return 0;
 }
+
