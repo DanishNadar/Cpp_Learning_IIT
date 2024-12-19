@@ -9,7 +9,7 @@ using namespace std; // This line will help avoid repetitively referencing std::
 class BankAccount {
 private:
     string* accountID; // Pointer to dynamically store the account ID
-    string* accountHolderNaame; // Pointer to dynamically store the account holder's name
+    string* accountHolderName; // Pointer to dynamically store the account holder's name
     string* password; // Pointer to dynamically store the account password
     double* balance; // Pointer to dynamically store the account balance
     bool validated = false; // Validation flag for user authentication
@@ -18,35 +18,35 @@ private:
 
 public:
     // Constructor: Allocate memory for all attributes
-    BankAccount()
-        : accountID(new string()),
+    BankAccount():	   
+	  accountID(new string()),
           accountHolderName(new string()),
           password(new string()),
           balance(new double(0.0)) {
-        accounts.push_back(this); // Add the newly created account to the global list
+          accounts.push_back(this); // Add the newly created account to the global list
     }
 
-    BankAccount(string name, string pass)
-        : accountID(new string()),
+    BankAccount(string name, string pass):
+          accountID(new string()),
           accountHolderName(new string(name)),
           password(new string(pass)),
           balance(new double(0.0)) {
-        accounts.push_back(this); // Add the newly created account to the global list
+          accounts.push_back(this); // Add the newly created account to the global list
     }
 
     // Safeguarded setters that allocate memory if needed
     void setAccountHolderName(string name) {
-        if (!accountHolderName) accountHolderName = new string();
+        if (!accountHolderName) {accountHolderName = new string();}
         *accountHolderName = name;
     }
 
     void setPassword(string pass) {
-        if (!password) password = new string();
+        if (!password) {password = new string();}
         *password = pass;
     }
 
     void setAccountID(string ID) {
-        if (!accountID) accountID = new string();
+        if (!accountID) {accountID = new string();}
         *accountID = ID;
     }
 
@@ -99,16 +99,19 @@ public:
         cout << "Enter Account ID: ";
         cin >> attempted_ID;
 
-        if (attempted_name == "admin" && attempted_password == "12345678") {
+        if (attempted_name == "admin" && attempted_password == "12345678" && attempted_ID == "admin1234") {
             admin_privileges = true;
+	    return;
         }
 
         if (attempted_name == *accountHolderName && attempted_password == *password && attempted_ID == *accountID) {
             validated = true;
             cout << "Validation successful!" << endl;
+	    return;
         } else {
             cout << "\nValidation failed! Incorrect credentials." << endl;
             validated = false;
+	    return;
         }
     }
 
@@ -142,28 +145,27 @@ public:
 
     // Static method to view all created accounts
     static void viewAllInformation() {
-    // Only allow access if admin privileges are enabled
-    for (const auto& account : accounts) {
-        if (account->admin_privileges) {
-            if (accounts.empty()) {
-                cout << "No accounts have been created yet." << endl;
+        // Only allow access if admin privileges are enabled
+        for (const auto& account : accounts) {
+            if (account->admin_privileges) {
+                if (accounts.empty()) {
+                    cout << "No accounts have been created yet." << endl;
+                    return;
+                }
+
+                cout << "\nListing all accounts in memory:\n";
+                for (size_t i = 0; i < accounts.size(); ++i) {
+                    cout << "Account #" << i + 1 << ":\n";
+                    accounts[i]->displayAccountInformation();
+                    cout << "-------------------" << endl;
+                }
                 return;
             }
-
-            cout << "\nListing all accounts in memory:\n";
-            for (size_t i = 0; i < accounts.size(); ++i) {
-                cout << "Account #" << i + 1 << ":\n";
-                accounts[i]->displayAccountInformation();
-                cout << "-------------------" << endl;
-            }
-            return;
         }
+
+        // If no admin privileges, show an error message
+        cout << "Access denied. You must have administrative privileges to view all accounts." << endl;
     }
-
-    // If no admin privileges, show an error message
-    cout << "Access denied. You must have administrative privileges to view all accounts." << endl;
-}
-
 
     ~BankAccount() {
         delete accountID;
@@ -184,7 +186,7 @@ string menu() {
          << "Option (4): Deposit into Account\n"
          << "Option (5): Withdraw from Account\n"
          << "Option (6): View All Accounts (Admin)\n"
-         << "Write the number in parenthesis corresponding to and following your chosen option." 
+         << "Write the number in parenthesis corresponding to and following your chosen option."
          << endl;
     string user_input;
     cin >> user_input;
@@ -228,4 +230,3 @@ int main() {
     }
     return 0;
 }
-
