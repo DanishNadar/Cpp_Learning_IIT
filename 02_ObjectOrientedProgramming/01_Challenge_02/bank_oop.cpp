@@ -34,7 +34,6 @@ public:
         accounts.push_back(this); // Add the newly created account to the global list
     }
 
-    // Safeguarded setters that allocate memory if needed
     void setAccountHolderName(string name) {
         if (!accountHolderName) { accountHolderName = new string(); }
         *accountHolderName = name;
@@ -53,12 +52,10 @@ public:
     string getAccountHolderName() { return *accountHolderName; }
     string getPassword() { return *password; }
 
-    // Helper function for later use when creating unique IDs
     int randomNumberGenerator() {
         return rand() % 10000 + 1; // Generate a random number between 1 and 10000
     }
 
-    // Dynamically allocate memory for account details including ID, name, and password
     void setAccountInformation(string ID, string name, string pass) {
         setAccountID(ID);
         setAccountHolderName(name);
@@ -66,6 +63,10 @@ public:
     }
 
     void displayAccountInformation() {
+        if (!validated) {
+            cout << "You must validate your account to view information." << endl;
+            return;
+        }
         cout << "\nThe following is your bank account information. Please remember this for later access to your bank account for any interactions." << endl;
         cout << "Account ID: " << *accountID << endl;
         cout << "Account Holder's Name: " << *accountHolderName << endl;
@@ -73,46 +74,45 @@ public:
         cout << "Account Balance: $" << *balance << endl;
     }
 
+
     void createBankAccount() {
         string name, pass;
         if (accountHolderName->empty()) {
-            cout << "Please provide the account holder's name: "; << endl;
+            cout << "Please provide the account holder's name: ";
             getline(cin, name); // Use getline to capture full input, including spaces
-            setAccountHolderName(name); // Set account holder's name
+            setAccountHolderName(name);
         }
         if (password->empty()) {
-            cout << "Please provide a password for your bank account: "; << endl;
-            getline(cin, pass); // Use getline to capture full input
-            setPassword(pass); // Set password
+            cout << "Please provide a password for your bank account: ";
+            getline(cin, pass);
+            setPassword(pass);
         }
         string ID = accountHolderName->substr(0, accountHolderName->find(' ')) + to_string(randomNumberGenerator());
-        setAccountInformation(ID, *accountHolderName, *password); // Assign account information
-        displayAccountInformation(); // Show details to the user
+        setAccountInformation(ID, *accountHolderName, *password);
+        displayAccountInformation();
     }
 
     void validateUser() {
         string attempted_name, attempted_password, attempted_ID;
-        cout << "Enter Account Holder's Name: "; << endl;
+        cout << "Enter Account Holder's Name: ";
         getline(cin, attempted_name);
-        cout << "Enter Account Password: "; << endl;
+        cout << "Enter Account Password: ";
         getline(cin, attempted_password);
-        cout << "Enter Account ID: "; << endl;
+        cout << "Enter Account ID: ";
         getline(cin, attempted_ID);
 
         if (attempted_name == "admin" && attempted_password == "12345678" && attempted_ID == "admin1234") {
             admin_privileges = true;
-	    cout << "You have logged in as an authorized administrative user and have obtained admin priveleges." << endl;
+            cout << "You have logged in as an authorized administrative user and have obtained admin privileges." << endl;
             return;
         }
 
         if (attempted_name == *accountHolderName && attempted_password == *password && attempted_ID == *accountID) {
             validated = true;
             cout << "Validation successful!" << endl;
-            return;
         } else {
             cout << "\nValidation failed! Incorrect credentials." << endl;
             validated = false;
-            return;
         }
     }
 
@@ -146,63 +146,30 @@ public:
         }
     }
 
-    // Static method to view all created accounts
     static void viewAllInformation() {
-        for (const auto& account : accounts) {
-            if (account->admin_privileges) {
-                if (accounts.empty()) {
-                    cout << "No accounts have been created yet." << endl;
-                    return;
-                }
-
-                cout << "\nListing all accounts in memory:\n";
-                for (size_t i = 0; i < accounts.size(); ++i) {
-                    cout << "Account #" << i + 1 << ":\n";
-                    accounts[i]->displayAccountInformation();
-                    cout << "-------------------" << endl;
-                }
-                return;
-            }
+        if (accounts.empty()) {
+            cout << "No accounts have been created yet." << endl;
+            return;
         }
 
-        cout << "Access denied. You must have administrative privileges to view all accounts." << endl;
+        cout << "\nListing all accounts in memory:\n";
+        for (size_t i = 0; i < accounts.size(); ++i) {
+            cout << "Account #" << i + 1 << ":\n";
+            accounts[i]->displayAccountInformation();
+            cout << "-------------------" << endl;
+        }
     }
 
-    void logOut(){
-        accountID->empty();
-	accountHolderName->empty();
-	password->empty();
-        balance->empty();
-    }
+    void logOut() {
+        if (validated) {
+            cout << "You have been logged out." << endl;
+            validated = false;
+	else {
+            cout << "You are not logged in." << endl;
+    	  }
+	}
 
-    ~BankAccount() {
-	cout << "Your account " << accountID* << " belonging to" << accountHolderName* << " along with the logged password " << password* << " holding a balance of $" >> *balance << " has been terminated."
-        delete accountID;
-        delete accountHolderName;
-        delete password;
-        delete balance;
-    }
-};
 
-// Define the static vector outside the class
-vector<BankAccount*> BankAccount::accounts;
-
-string menu() {
-    cout << "\nPick one of the interaction options:\n"
-         << "Option (1): Create Bank Account\n"
-         << "Option (2): Validate User\n"
-         << "Option (3): Display Account Information\n"
-         << "Option (4): Deposit into Account\n"
-         << "Option (5): Withdraw from Account\n"
-         << "Option (6): View All Accounts (Admin)\n"
-	 << "Option (7): Log out of account\n"
-	 << "Option (8): Delete account\n"
-         << "Write the number in parenthesis corresponding to and following your chosen option."
-         << endl;
-    string user_input;
-    getline(cin, user_input);
-    return user_input;
-}
 
 void redirect(BankAccount& account, string choice) {
     if (choice == "1") {
@@ -223,15 +190,42 @@ void redirect(BankAccount& account, string choice) {
     } else if (choice == "6") {
         cout << "You are being redirected to view all accounts." << endl;
         BankAccount::viewAllInformation();
-    } else if (choice == "7"){
-	account.logOut(); 
-    } else if(chioce == "8"){
-        ~bankAccount()
-    }
+    } else if (choice == "7") {
+        account.logOut();
     } else {
         cout << "Invalid option. Please try again." << endl;
     }
 }
+
+
+    ~BankAccount() {
+        cout << "Your account (ID: " << *accountID << ") belonging to " << *accountHolderName << " has been terminated." << endl;
+        delete accountID;
+        delete accountHolderName;
+        delete password;
+        delete balance;
+    }
+};
+
+vector<BankAccount*> BankAccount::accounts;
+
+string menu() {
+    cout << "\nPick one of the interaction options:\n"
+         << "Option (1): Create Bank Account\n"
+         << "Option (2): Validate User\n"
+         << "Option (3): Display Account Information\n"
+         << "Option (4): Deposit into Account\n"
+         << "Option (5): Withdraw from Account\n"
+         << "Option (6): View All Accounts (Admin)\n"
+         << "Option (7): Log out of account\n"
+         << "Write the number in parenthesis corresponding to and following your chosen option."
+         << endl;
+    string user_input;
+    getline(cin, user_input);
+    return user_input;
+}
+
+
 
 int main() {
     srand(time(0)); // Seed the random number generator
