@@ -18,35 +18,35 @@ private:
 
 public:
     // Constructor: Allocate memory for all attributes
-    BankAccount():	   
-	  accountID(new string()),
-          accountHolderName(new string()),
-          password(new string()),
-          balance(new double(0.0)) {
-          accounts.push_back(this); // Add the newly created account to the global list
+    BankAccount():
+        accountID(new string()),
+        accountHolderName(new string()),
+        password(new string()),
+        balance(new double(0.0)) {
+        accounts.push_back(this); // Add the newly created account to the global list
     }
 
     BankAccount(string name, string pass):
-          accountID(new string()),
-          accountHolderName(new string(name)),
-          password(new string(pass)),
-          balance(new double(0.0)) {
-          accounts.push_back(this); // Add the newly created account to the global list
+        accountID(new string()),
+        accountHolderName(new string(name)),
+        password(new string(pass)),
+        balance(new double(0.0)) {
+        accounts.push_back(this); // Add the newly created account to the global list
     }
 
     // Safeguarded setters that allocate memory if needed
     void setAccountHolderName(string name) {
-        if (!accountHolderName) {accountHolderName = new string();}
+        if (!accountHolderName) { accountHolderName = new string(); }
         *accountHolderName = name;
     }
 
     void setPassword(string pass) {
-        if (!password) {password = new string();}
+        if (!password) { password = new string(); }
         *password = pass;
     }
 
     void setAccountID(string ID) {
-        if (!accountID) {accountID = new string();}
+        if (!accountID) { accountID = new string(); }
         *accountID = ID;
     }
 
@@ -76,12 +76,12 @@ public:
     void createBankAccount() {
         string name, pass;
         if (accountHolderName->empty()) {
-            cout << "Please provide the account holder's name: ";
+            cout << "Please provide the account holder's name: "; << endl;
             getline(cin, name); // Use getline to capture full input, including spaces
             setAccountHolderName(name); // Set account holder's name
         }
         if (password->empty()) {
-            cout << "Please provide a password for your bank account: ";
+            cout << "Please provide a password for your bank account: "; << endl;
             getline(cin, pass); // Use getline to capture full input
             setPassword(pass); // Set password
         }
@@ -89,31 +89,30 @@ public:
         setAccountInformation(ID, *accountHolderName, *password); // Assign account information
         displayAccountInformation(); // Show details to the user
     }
-  
 
     void validateUser() {
         string attempted_name, attempted_password, attempted_ID;
-        cout << "Enter Account Holder's Name: ";
-        cin.ignore();
+        cout << "Enter Account Holder's Name: "; << endl;
         getline(cin, attempted_name);
-        cout << "Enter Account Password: ";
+        cout << "Enter Account Password: "; << endl;
         getline(cin, attempted_password);
-        cout << "Enter Account ID: ";
+        cout << "Enter Account ID: "; << endl;
         getline(cin, attempted_ID);
 
         if (attempted_name == "admin" && attempted_password == "12345678" && attempted_ID == "admin1234") {
             admin_privileges = true;
-	    return;
+	    cout << "You have logged in as an authorized administrative user and have obtained admin priveleges." << endl;
+            return;
         }
 
         if (attempted_name == *accountHolderName && attempted_password == *password && attempted_ID == *accountID) {
             validated = true;
             cout << "Validation successful!" << endl;
-	    return;
+            return;
         } else {
             cout << "\nValidation failed! Incorrect credentials." << endl;
             validated = false;
-	    return;
+            return;
         }
     }
 
@@ -122,6 +121,7 @@ public:
             double depositAmount;
             cout << "How much USD would you like to deposit? ";
             cin >> depositAmount;
+            cin.ignore(); // Clear the buffer
             *balance += depositAmount;
             cout << "Your new bank balance is $" << *balance << endl;
         } else {
@@ -134,6 +134,7 @@ public:
             double withdrawalAmount;
             cout << "How much USD would you like to withdraw? ";
             cin >> withdrawalAmount;
+            cin.ignore(); // Clear the buffer
             if (*balance >= withdrawalAmount) {
                 *balance -= withdrawalAmount;
                 cout << "Your new bank balance is $" << *balance << endl;
@@ -147,7 +148,6 @@ public:
 
     // Static method to view all created accounts
     static void viewAllInformation() {
-        // Only allow access if admin privileges are enabled
         for (const auto& account : accounts) {
             if (account->admin_privileges) {
                 if (accounts.empty()) {
@@ -165,11 +165,18 @@ public:
             }
         }
 
-        // If no admin privileges, show an error message
         cout << "Access denied. You must have administrative privileges to view all accounts." << endl;
     }
 
+    void logOut(){
+        accountID->empty();
+	accountHolderName->empty();
+	password->empty();
+        balance->empty();
+    }
+
     ~BankAccount() {
+	cout << "Your account " << accountID* << " belonging to" << accountHolderName* << " along with the logged password " << password* << " holding a balance of $" >> *balance << " has been terminated."
         delete accountID;
         delete accountHolderName;
         delete password;
@@ -188,6 +195,8 @@ string menu() {
          << "Option (4): Deposit into Account\n"
          << "Option (5): Withdraw from Account\n"
          << "Option (6): View All Accounts (Admin)\n"
+	 << "Option (7): Log out of account\n"
+	 << "Option (8): Delete account\n"
          << "Write the number in parenthesis corresponding to and following your chosen option."
          << endl;
     string user_input;
@@ -214,6 +223,11 @@ void redirect(BankAccount& account, string choice) {
     } else if (choice == "6") {
         cout << "You are being redirected to view all accounts." << endl;
         BankAccount::viewAllInformation();
+    } else if (choice == "7"){
+	account.logOut(); 
+    } else if(chioce == "8"){
+        ~bankAccount()
+    }
     } else {
         cout << "Invalid option. Please try again." << endl;
     }
@@ -232,4 +246,3 @@ int main() {
     }
     return 0;
 }
-
