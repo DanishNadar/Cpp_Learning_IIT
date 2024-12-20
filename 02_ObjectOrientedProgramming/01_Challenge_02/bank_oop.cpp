@@ -4,21 +4,23 @@
 #include <cstdlib>
 #include <ctime>
 
-using namespace std; // This line will help avoid repetitively referencing std::
+using namespace std;
 
 class BankAccount {
 private:
-    string* accountID; // Pointer to dynamically store the account ID
-    string* accountHolderName; // Pointer to dynamically store the account holder's name
-    string* password; // Pointer to dynamically store the account password
-    double* balance; // Pointer to dynamically store the account balance
-    bool validated = false; // Validation flag for user authentication
-    bool admin_privileges = false; // Validation flag for admin privileges
+    string* accountID;               // Pointer to dynamically store the account ID
+    string* accountHolderName;       // Pointer to dynamically store the account holder's name
+    string* password;                // Pointer to dynamically store the account password
+    double* balance;                 // Pointer to dynamically store the account balance
+    bool validated = false;          // Validation flag for user authentication
+    bool admin_privileges = false;   // Validation flag for admin privileges
+    static bool during_creation;  // Static for shared use
     static vector<BankAccount*> accounts; // Static vector to store all created accounts
 
 public:
+    static bool during_creation; // Static for shared use
     // Constructor: Allocate memory for all attributes
-    BankAccount():
+    BankAccount() :
         accountID(new string()),
         accountHolderName(new string()),
         password(new string()),
@@ -26,7 +28,7 @@ public:
         accounts.push_back(this); // Add the newly created account to the global list
     }
 
-    BankAccount(string name, string pass):
+    BankAccount(string name, string pass) :
         accountID(new string()),
         accountHolderName(new string(name)),
         password(new string(pass)),
@@ -63,7 +65,7 @@ public:
     }
 
     void displayAccountInformation() {
-        if (!validated) {
+        if (!validated && !during_creation) {
             cout << "You must validate your account to view information." << endl;
             return;
         }
@@ -74,12 +76,11 @@ public:
         cout << "Account Balance: $" << *balance << endl;
     }
 
-
     void createBankAccount() {
         string name, pass;
         if (accountHolderName->empty()) {
             cout << "Please provide the account holder's name: ";
-            getline(cin, name); // Use getline to capture full input, including spaces
+            getline(cin, name);
             setAccountHolderName(name);
         }
         if (password->empty()) {
@@ -121,7 +122,7 @@ public:
             double depositAmount;
             cout << "How much USD would you like to deposit? ";
             cin >> depositAmount;
-            cin.ignore(); // Clear the buffer
+            cin.ignore();
             *balance += depositAmount;
             cout << "Your new bank balance is $" << *balance << endl;
         } else {
@@ -134,7 +135,7 @@ public:
             double withdrawalAmount;
             cout << "How much USD would you like to withdraw? ";
             cin >> withdrawalAmount;
-            cin.ignore(); // Clear the buffer
+            cin.ignore();
             if (*balance >= withdrawalAmount) {
                 *balance -= withdrawalAmount;
                 cout << "Your new bank balance is $" << *balance << endl;
@@ -151,7 +152,6 @@ public:
             cout << "No accounts have been created yet." << endl;
             return;
         }
-
         cout << "\nListing all accounts in memory:\n";
         for (size_t i = 0; i < accounts.size(); ++i) {
             cout << "Account #" << i + 1 << ":\n";
@@ -164,39 +164,10 @@ public:
         if (validated) {
             cout << "You have been logged out." << endl;
             validated = false;
-	else {
+        } else {
             cout << "You are not logged in." << endl;
-    	  }
-	}
-
-
-
-void redirect(BankAccount& account, string choice) {
-    if (choice == "1") {
-        cout << "You are being redirected to create a bank account." << endl;
-        account.createBankAccount();
-    } else if (choice == "2") {
-        cout << "You are being redirected to validate your credentials." << endl;
-        account.validateUser();
-    } else if (choice == "3") {
-        cout << "You are being redirected to your account's information display." << endl;
-        account.displayAccountInformation();
-    } else if (choice == "4") {
-        cout << "You are being redirected to the deposit utility function." << endl;
-        account.bankDeposit();
-    } else if (choice == "5") {
-        cout << "You are being redirected to the withdrawal utility function." << endl;
-        account.bankWithdrawal();
-    } else if (choice == "6") {
-        cout << "You are being redirected to view all accounts." << endl;
-        BankAccount::viewAllInformation();
-    } else if (choice == "7") {
-        account.logOut();
-    } else {
-        cout << "Invalid option. Please try again." << endl;
+        }
     }
-}
-
 
     ~BankAccount() {
         cout << "Your account (ID: " << *accountID << ") belonging to " << *accountHolderName << " has been terminated." << endl;
@@ -225,7 +196,32 @@ string menu() {
     return user_input;
 }
 
-
+void redirect(BankAccount& account, string choice) {
+    if (choice == "1") {
+        cout << "You are being redirected to create a bank account." << endl;
+	BankAccount::during_creation = true;
+        account.createBankAccount();
+    } else if (choice == "2") {
+        cout << "You are being redirected to validate your credentials." << endl;
+        account.validateUser();
+    } else if (choice == "3") {
+        cout << "You are being redirected to your account's information display." << endl;
+        account.displayAccountInformation();
+    } else if (choice == "4") {
+        cout << "You are being redirected to the deposit utility function." << endl;
+        account.bankDeposit();
+    } else if (choice == "5") {
+        cout << "You are being redirected to the withdrawal utility function." << endl;
+        account.bankWithdrawal();
+    } else if (choice == "6") {
+        cout << "You are being redirected to view all accounts." << endl;
+        BankAccount::viewAllInformation();
+    } else if (choice == "7") {
+        account.logOut();
+    } else {
+        cout << "Invalid option. Please try again." << endl;
+    }
+}
 
 int main() {
     srand(time(0)); // Seed the random number generator
@@ -240,3 +236,4 @@ int main() {
     }
     return 0;
 }
+
