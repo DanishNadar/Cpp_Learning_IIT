@@ -178,6 +178,7 @@ public:
 };
 
 bool BankAccount::during_creation = false;
+bool logged_out = false;
 vector<BankAccount*> BankAccount::accounts;
 
 string menu() {
@@ -197,31 +198,50 @@ string menu() {
 }
 
 void redirect(BankAccount*& currentAccount, string choice) {
+    if((!(choice=="1") || !(choice=="2")) && logged_out==true){
+        cout << "You may only create a new account because you are currently logged out." << endl;
+	return;
+    }
     if (choice == "1") {
         cout << "You are being redirected to create a bank account." << endl;
 	BankAccount* newAccount = new BankAccount();
         newAccount->createBankAccount();
+	logged_out = false;
+	new_account = true;
     } else if (choice == "2") {
         cout << "You are being redirected to validate your credentials." << endl;
         BankAccount* validatedAccount = currentAccount->validateUser();
         if (validatedAccount) {
-            currentAccount = validatedAccount;
+	    delete currentAccount;
+	    validated_account = true;
         }
     } else if (choice == "3") {
         cout << "You are being redirected to your account's information display." << endl;
+	if(validated_account==true){validatedAccount->displayAccountInformation();return;}
         currentAccount->displayAccountInformation();
     } else if (choice == "4") {
         cout << "You are being redirected to the deposit utility function." << endl;
+	if(validated_account==true){validatedAccount->bankDeposit();return;}
         currentAccount->bankDeposit();
     } else if (choice == "5") {
         cout << "You are being redirected to the withdrawal utility function." << endl;
+	if(validated_account==true){validatedAccount->bankWithdrawal();return;}
         currentAccount->bankWithdrawal();
     } else if (choice == "6") {
         cout << "You are being redirected to view all accounts." << endl;
-        BankAccount::viewAllInformation();
+	if(BankAccount::admin_priveleges == true){
+            BankAccount::viewAllInformation();
+	}
     } else if (choice == "7") {
+	if(validated_account == true){
+	    validatedAccount->logOut();
+	    validatedAccount = loggedOutAccount;
+	    logged_out = true;
+	    return;
+	}
         currentAccount->logOut();
-	currentAccount->loggedOutAccount
+	currentAccount = loggedOutAccount;
+	logged_out = true;
     } else {
         cout << "Invalid option. Please try again." << endl;
     }
