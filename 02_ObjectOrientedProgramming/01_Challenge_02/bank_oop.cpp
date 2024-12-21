@@ -14,11 +14,11 @@ private:
     double* balance;                 // Pointer to dynamically store the account balance
     bool validated = false;          // Validation flag for user authentication
     bool admin_privileges = false;   // Validation flag for admin privileges
-    static bool during_creation;  // Static for shared use
-    static vector<BankAccount*> accounts; // Static vector to store all created accounts
 
 public:
-    static bool during_creation; // Static for shared use
+    static bool during_creation;              // Static for shared use
+    static vector<BankAccount*> accounts;     // Static vector to store all created accounts
+
     // Constructor: Allocate memory for all attributes
     BankAccount() :
         accountID(new string()),
@@ -53,6 +53,7 @@ public:
 
     string getAccountHolderName() { return *accountHolderName; }
     string getPassword() { return *password; }
+    bool isValidated() const { return validated; }
 
     int randomNumberGenerator() {
         return rand() % 10000 + 1; // Generate a random number between 1 and 10000
@@ -77,23 +78,23 @@ public:
     }
 
     void createBankAccount() {
+	during_creation = true;
         string name, pass;
-        if (accountHolderName->empty()) {
-            cout << "Please provide the account holder's name: ";
-            getline(cin, name);
-            setAccountHolderName(name);
-        }
-        if (password->empty()) {
-            cout << "Please provide a password for your bank account: ";
-            getline(cin, pass);
-            setPassword(pass);
-        }
-        string ID = accountHolderName->substr(0, accountHolderName->find(' ')) + to_string(randomNumberGenerator());
-        setAccountInformation(ID, *accountHolderName, *password);
-        displayAccountInformation();
-    }
+        cout << "Please provide the account holder's name: ";
+        getline(cin, name);
 
-    void validateUser() {
+        cout << "Please provide a password for your bank account: ";
+        getline(cin, pass);
+
+        string ID = accountHolderName->substr(0, accountHolderName->find(' ')) + to_string(randomNumberGenerator());
+        setAccountInformation(ID, name, pass);
+
+        cout << "\nYour account has been successfully created! Here is your account information:\n";
+        displayAccountInformation();
+}
+
+
+    BankAccount* validateUser() {
         string attempted_name, attempted_password, attempted_ID;
         cout << "Enter Account Holder's Name: ";
         getline(cin, attempted_name);
@@ -102,19 +103,17 @@ public:
         cout << "Enter Account ID: ";
         getline(cin, attempted_ID);
 
-        if (attempted_name == "admin" && attempted_password == "12345678" && attempted_ID == "admin1234") {
-            admin_privileges = true;
-            cout << "You have logged in as an authorized administrative user and have obtained admin privileges." << endl;
-            return;
+        for (BankAccount* account : accounts) {
+            if (attempted_name == *account->accountHolderName && 
+                attempted_password == *account->password && 
+                attempted_ID == *account->accountID) {
+                account->validated = true;
+                cout << "Validation successful! You are now logged in." << endl;
+                return account;
+            }
         }
-
-        if (attempted_name == *accountHolderName && attempted_password == *password && attempted_ID == *accountID) {
-            validated = true;
-            cout << "Validation successful!" << endl;
-        } else {
-            cout << "\nValidation failed! Incorrect credentials." << endl;
-            validated = false;
-        }
+        cout << "\nValidation failed! Incorrect credentials." << endl;
+        return nullptr;
     }
 
     void bankDeposit() {
@@ -178,6 +177,7 @@ public:
     }
 };
 
+bool BankAccount::during_creation = false;
 vector<BankAccount*> BankAccount::accounts;
 
 string menu() {
@@ -196,28 +196,32 @@ string menu() {
     return user_input;
 }
 
-void redirect(BankAccount& account, string choice) {
+void redirect(BankAccount*& currentAccount, string choice) {
     if (choice == "1") {
         cout << "You are being redirected to create a bank account." << endl;
-	BankAccount::during_creation = true;
-        account.createBankAccount();
+	BankAccount* newAccount = new BankAccount();
+        newAccount->createBankAccount();
     } else if (choice == "2") {
         cout << "You are being redirected to validate your credentials." << endl;
-        account.validateUser();
+        BankAccount* validatedAccount = currentAccount->validateUser();
+        if (validatedAccount) {
+            currentAccount = validatedAccount;
+        }
     } else if (choice == "3") {
         cout << "You are being redirected to your account's information display." << endl;
-        account.displayAccountInformation();
+        currentAccount->displayAccountInformation();
     } else if (choice == "4") {
         cout << "You are being redirected to the deposit utility function." << endl;
-        account.bankDeposit();
+        currentAccount->bankDeposit();
     } else if (choice == "5") {
         cout << "You are being redirected to the withdrawal utility function." << endl;
-        account.bankWithdrawal();
+        currentAccount->bankWithdrawal();
     } else if (choice == "6") {
         cout << "You are being redirected to view all accounts." << endl;
         BankAccount::viewAllInformation();
     } else if (choice == "7") {
-        account.logOut();
+        currentAccount->logOut();
+	currentAccount->loggedOutAccount
     } else {
         cout << "Invalid option. Please try again." << endl;
     }
@@ -225,15 +229,17 @@ void redirect(BankAccount& account, string choice) {
 
 int main() {
     srand(time(0)); // Seed the random number generator
-    BankAccount account;
+    BankAccount* currentAccount = new BankAccount();
+    BankAccount* loggedOutAccount = new BankAccount();
     string input = "";
     cout << "You may perform as many operations or interactions as you would like. Please use the 'end' keyword to exit the program." << endl;
     while (input != "end") {
         input = menu();
         if (input != "end") {
-            redirect(account, input);
+            redirect(currentAccount, input);
         }
     }
+    delete currentAccount;
     return 0;
 }
 
