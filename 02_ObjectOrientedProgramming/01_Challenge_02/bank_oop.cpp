@@ -13,15 +13,16 @@ private:
     string* password;                // Pointer to dynamically store the account password
     double* balance;                 // Pointer to dynamically store the account balance
     bool validated = false;          // Validation flag for user authentication
+    bool during_creation = false;    // Boolean to check whether an account is in the process of creation
 
 public:
-    static bool validated_account;                   // Static for shared use among objects to see if validated   
-    static bool during_creation;             // Static boolean to check whether an account is in the process of creation
+    static bool validated_account;            // Static for shared use among objects to see if validated   
     static vector<BankAccount*> accounts;    // Static vector to store all created accounts
-    static bool admin_privileges;            // Validation flag for admin privileges
+    static bool admin_privileges;           // Validation flag for admin privileges
+    static bool logged_out;                // Static flag to check whether account is logged out
 
     // Constructor: Allocate memory for all attributes
-    BankAccount() :
+    BankAccount():
         accountID(new string()),
         accountHolderName(new string()),
         password(new string()),
@@ -29,7 +30,7 @@ public:
         accounts.push_back(this); // Add the newly created account to the global list
     }
 
-    BankAccount(string name, string pass) :
+    BankAccount(string name, string pass):
         accountID(new string()),
         accountHolderName(new string(name)),
         password(new string(pass)),
@@ -79,8 +80,8 @@ public:
     }
 
     void createBankAccount() {
-        during_creation = true;
-	validated = false;
+        during_creation = true;  // Set flag to true while the account is in the process of being created
+        validated = false;       // Reset validated flag to false to require validation after account is created
         string name, pass;
         cout << "Please provide the account holder's name: ";
         getline(cin, name);
@@ -93,7 +94,10 @@ public:
 
         cout << "\nYour account has been successfully created! Here is your account information:\n";
         displayAccountInformation();
-    }
+
+        during_creation = false; // Reset flag after account creation
+}
+
 
     BankAccount* validateUser() {
         string attempted_name, attempted_password, attempted_ID;
@@ -182,7 +186,7 @@ public:
 
 bool BankAccount::admin_privileges = false;
 bool BankAccount::validated_account = false;
-bool logged_out = false;
+bool BankAccount::logged_out = false;
 vector<BankAccount*> BankAccount::accounts;
 
 string menu() {
@@ -203,20 +207,20 @@ string menu() {
 
 void redirect(BankAccount*& currentAccount, string choice) {
     static BankAccount* validatedAccount = nullptr; // Make validatedAccount static to retain state
-    if ((!(choice == "1") || !(choice == "2")) && logged_out == true) {
+    if ((!((choice == "1") || !(choice == "2"))) && BankAccount::logged_out == true) {
 	cout << "You may only create a new account because you are currently logged out." << endl;
 	return;
     }
 
     if (choice == "1") {
-    if(BankAccount::validated_account = true){
-        validatedAccount->displayAccountInformation();
-    } else{
-        cout << "You are being redirected to create a bank account." << endl;
-	BankAccount* newAccount = new BankAccount();
-	newAccount->createBankAccount();
-	logged_out = false;
-    }
+        if(BankAccount::validated_account){
+            validatedAccount->displayAccountInformation();
+        } else{
+            cout << "You are being redirected to create a bank account." << endl;
+	    BankAccount* newAccount = new BankAccount();
+	    newAccount->createBankAccount();
+	    BankAccount::logged_out = false;
+        }
     } else if (choice == "2") {
         cout << "You are being redirected to validate your credentials." << endl;
         BankAccount* tempAccount = currentAccount->validateUser();
@@ -259,10 +263,10 @@ void redirect(BankAccount*& currentAccount, string choice) {
 	    if (BankAccount::validated_account) {
                 validatedAccount->logOut();
 	        validatedAccount = nullptr;
-		logged_out = true;
+		BankAccount::logged_out = true;
 		return;
-	    cout << "ERROR: You are not validated yet!" << endl;
 	    }
+	    cout << "ERROR: You are not validated yet!" << endl;
 	} else {
 	    cout << "Invalid option. Please try again." << endl;
 	    }
