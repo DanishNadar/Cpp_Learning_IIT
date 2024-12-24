@@ -107,10 +107,13 @@ public:
         getline(cin, attempted_password);
         cout << "Enter Account ID: ";
         getline(cin, attempted_ID);
-        if (attempted_name == "1" && attempted_password == "2" && attempted_ID == "3"){
-	    admin_privileges = true;
-	    cout << "You have been validated as an administrative user and been granted admin privileges!" << endl;
-	    return ;
+        if (attempted_name == "admin" && attempted_password == "1234" && attempted_ID == "admin1234"){
+	    static BankAccount adminAccount("Admin", "1234");
+            adminAccount.setAccountID("Admin1234"); // Set a unique admin ID
+            admin_privileges = true;
+            cout << "You have been validated as an administrative user and granted admin privileges!" << endl;
+            return &adminAccount; // Return the admin account instance
+
 	}
         for (BankAccount* account : accounts) {
             if (attempted_name == *account->accountHolderName && 
